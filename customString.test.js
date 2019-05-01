@@ -11,7 +11,12 @@ test("Returns false if the string does not contain vowels.", function() {
 });
 test("Return true if the string is a question (ending with a question mark).", function() {
   var str = "are you going home?";
-  expect(str.hasVowels()).toBeTruthy();
+  expect(str.isQuestion()).toBeTruthy();
+});
+
+test("Return false if the string is not a question (doesn't end with a question mark).", function() {
+  var str = "welcome back home honey!";
+  expect(str.isQuestion()).toBeFalsy();
 });
 
 // test("Returns the String in question but with all characters in upper cases as applicable..", function() {
