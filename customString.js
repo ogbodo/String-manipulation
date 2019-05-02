@@ -21,9 +21,9 @@ String.prototype.numberWords = function() {
     7: "seven",
     8: "eight",
     9: "nine",
-    pattern: /\d/g
+    digitPattern: /\d/g
   };
-  var digitsArray = this.match(numberWordRegex.pattern);
+  var digitsArray = this.match(numberWordRegex.digitPattern);
   var numberToWord = "";
   digitsArray.forEach(digit => {
     numberToWord += numberWordRegex[digit].concat(" ");
@@ -39,6 +39,10 @@ String.prototype.wordsToArray = function() {
 
 String.prototype.wordCount = function() {
   return this.wordsToArray().length;
+};
+
+String.prototype.isDigit = function() {
+  return this.match(/\d/g).length === 1 ? true : false;
 };
 
 String.prototype.toUpper = function() {

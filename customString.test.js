@@ -36,6 +36,13 @@ test("Returns the number of words in the string", function() {
   expect(str.wordCount()).toBe(5);
 });
 
+test("Returns true if the string is a digit(one number) e.g 3 should return true and 34 should return false", function() {
+  var str = "7";
+  expect(str.isDigit()).toBeTruthy();
+  str = "57";
+  expect(str.isDigit()).toBeFalsy();
+});
+
 // test("Returns the String in question but with all characters in upper cases as applicable..", function() {
 //   var str = "King Solomon";
 //   expect(str.toUpper()).toBe("");
