@@ -98,7 +98,8 @@ String.prototype.toCurrency = function() {
 
 String.prototype.fromCurrency = function() {
   var regex = /(\d+),(\d+),?(\d+)?(\.)?(\d+)?/;
-  return this.replace(regex, "$1$2$3$4$5");
+  var num = this.replace(regex, "$1$2$3$4$5");
+  return parseFloat(num);
 };
 
 String.prototype.toUpper = function() {
