@@ -1,9 +1,9 @@
-function CustomString() {}
 String.prototype.hasVowels = function() {
   var vowelRegex = /[aeiou]/gi;
 
   return vowelRegex.test(this);
 };
+
 String.prototype.isQuestion = function() {
   var isQuestionRegex = /\w+[?]/;
   return isQuestionRegex.test(this);
@@ -42,7 +42,58 @@ String.prototype.wordCount = function() {
 };
 
 String.prototype.isDigit = function() {
-  return this.match(/\d/g).length === 1 ? true : false;
+  var digitRegex = /\d/g;
+
+  if (!digitRegex.test(this)) {
+    return false;
+  }
+  return this.match(digitRegex).length === 1 ? true : false;
+};
+
+String.prototype.fromCurrency = function() {
+  var regexPattern = /\d+(\.\d+)?/g;
+
+  if (!regexPattern.test(this)) {
+    return false;
+  }
+
+  var numbers = this.match(regexPattern);
+  var formattedCurrency = "";
+  numbers.forEach(currencyInput => {
+    var mantissaPortion = /(\d+)(?:\.)/.exec(currencyInput);
+
+    var mantissaValue =
+      mantissaPortion != null ? mantissaPortion[1] : currencyInput;
+
+    if (/^\d{3}$/.test(mantissaValue)) {
+      formattedCurrency += currencyInput + " ";
+    } else {
+      var oneGrouped = /(\d{3})/,
+        twoGrouped = /(\d{3})(\d{3})/,
+        threeGrouped = /(\d{3})(\d{3})(\d{3})/;
+
+      if (/^\d{1,5}$/.test(mantissaValue)) {
+        formattedCurrency += currencyInput.replace(oneGrouped, "$1,") + " ";
+      } else if (/^\d{1,7}$/.test(mantissaValue)) {
+        if (mantissaValue.length % 3 === 0) {
+          formattedCurrency += currencyInput.replace(twoGrouped, "$1,$2") + " ";
+        } else {
+          formattedCurrency +=
+            currencyInput.replace(twoGrouped, "$1,$2,") + " ";
+        }
+      } else if (/^\d{1,10}$/.test(mantissaValue)) {
+        if (mantissaValue.length % 3 === 0) {
+          formattedCurrency +=
+            currencyInput.replace(threeGrouped, "$1,$2,$3") + " ";
+        } else {
+          formattedCurrency +=
+            currencyInput.replace(threeGrouped, "$1,$2,$3,") + " ";
+        }
+      }
+    }
+  });
+
+  return formattedCurrency;
 };
 
 String.prototype.toUpper = function() {
@@ -62,5 +113,3 @@ String.prototype.toUpper = function() {
 // CustomString.prototype.hasVowels = function() {};
 
 /**Start customizing the prototype of the string class to suite my own implementations */
-
-module.exports = CustomString;
