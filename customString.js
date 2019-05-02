@@ -96,6 +96,11 @@ String.prototype.toCurrency = function() {
   return formattedCurrency;
 };
 
+String.prototype.fromCurrency = function() {
+  var regex = /(\d+),(\d+),?(\d+)?(\.)?(\d+)?/;
+  return this.replace(regex, "$1$2$3$4$5");
+};
+
 String.prototype.toUpper = function() {
   //   var regex = /(.+)\U\1/g;
   var regex = /(.+)\U$1/g;

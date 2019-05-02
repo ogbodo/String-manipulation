@@ -43,10 +43,14 @@ test("Returns true if the string is a digit(one number) e.g 3 should return true
   expect(str.isDigit()).toBeFalsy();
 });
 
-test("Returns a number representation of the Currency String e.g 11,111.11 should return 11111.11", function() {
+test("Returns a currency representation of the String e.g 11111.11 should be represented as 11,111.11.", function() {
   var str = "11111.11";
-  // "1111.11 232344.45 2034598.09 7888. 965533. 9834567.90 2347189734.234";
   expect(str.toCurrency()).toBe("111,11.11 ");
+});
+
+test("Returns a number representation of the Currency String e.g 11,111.11 should return 11111.11", function() {
+  var str = "11,1111.11";
+  expect(str.fromCurrency()).toBe("111111.11");
 });
 
 // test("Returns the String in question but with all characters in upper cases as applicable..", function() {
