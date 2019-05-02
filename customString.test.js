@@ -24,10 +24,10 @@ test("Returns the numbers in words e.g 325 should return three two five", functi
   expect(str.numberWords()).toMatch("three two five ");
 });
 
-// test("Returns a list of the words in the string, as an Array", function() {
-//   var str = "Welcome to my paradize folks";
-//   expect(str.wordsToArray()).toBe(["welcome", "to", "my", "paradize"]);
-// });
+test("Returns a list of the words in the string, as an Array", function() {
+  var str = "welcome to my home folks";
+  expect(str.wordsToArray()).toEqual(["welcome", "to", "my", "home", "folks"]);
+});
 
 // test("Returns the String in question but with all characters in upper cases as applicable..", function() {
 //   var str = "King Solomon";

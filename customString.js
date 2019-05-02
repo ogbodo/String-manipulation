@@ -35,9 +35,10 @@ String.prototype.numberWords = function() {
 };
 
 String.prototype.wordsToArray = function() {
-  var wordRegex = /\b[\w+]\b/g;
-  var wordArray = wordRegex.exec(this);
+  var wordRegex = /\b\w+\b/g;
+  var wordArray = this.match(wordRegex);
   console.log(wordArray);
+  return wordArray;
 };
 
 String.prototype.toUpper = function() {
