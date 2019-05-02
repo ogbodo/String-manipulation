@@ -1,6 +1,4 @@
-function CustomString() {
-  //customString().call(this);
-}
+function CustomString() {}
 String.prototype.hasVowels = function() {
   var vowelRegex = /[aeiou]/gi;
 
@@ -30,15 +28,17 @@ String.prototype.numberWords = function() {
   digitsArray.forEach(digit => {
     numberToWord += numberWordRegex[digit].concat(" ");
   });
-  console.log(numberToWord);
   return numberToWord;
 };
 
 String.prototype.wordsToArray = function() {
   var wordRegex = /\b\w+\b/g;
   var wordArray = this.match(wordRegex);
-  console.log(wordArray);
   return wordArray;
+};
+
+String.prototype.wordCount = function() {
+  return this.wordsToArray().length;
 };
 
 String.prototype.toUpper = function() {
@@ -46,7 +46,6 @@ String.prototype.toUpper = function() {
   var regex = /(.+)\U$1/g;
 
   var matchedText = regex.exec(this);
-  console.log(matchedText);
 
   var upeerCaseRegex = /\U/.exec(matchedText);
   //   matchedText.forEach(function(value, index, arr) {

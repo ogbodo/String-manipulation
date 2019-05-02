@@ -22,11 +22,18 @@ test("Return false if the string is not a question (doesn't end with a question 
 test("Returns the numbers in words e.g 325 should return three two five", function() {
   var str = "325";
   expect(str.numberWords()).toMatch("three two five ");
+  str = "048935";
+  expect(str.numberWords()).toMatch("zero four eight nine three five ");
 });
 
 test("Returns a list of the words in the string, as an Array", function() {
   var str = "welcome to my home folks";
   expect(str.wordsToArray()).toEqual(["welcome", "to", "my", "home", "folks"]);
+});
+
+test("Returns the number of words in the string", function() {
+  var str = "welcome to my home folks";
+  expect(str.wordCount()).toBe(5);
 });
 
 // test("Returns the String in question but with all characters in upper cases as applicable..", function() {
