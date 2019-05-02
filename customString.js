@@ -50,7 +50,7 @@ String.prototype.isDigit = function() {
   return this.match(digitRegex).length === 1 ? true : false;
 };
 
-String.prototype.fromCurrency = function() {
+String.prototype.toCurrency = function() {
   var regexPattern = /\d+(\.\d+)?/g;
 
   if (!regexPattern.test(this)) {
