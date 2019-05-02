@@ -2,8 +2,6 @@ function CustomString() {
   //customString().call(this);
 }
 String.prototype.hasVowels = function() {
-  console.log(this);
-
   var vowelRegex = /[aeiou]/gi;
 
   return vowelRegex.test(this);
@@ -12,8 +10,37 @@ String.prototype.isQuestion = function() {
   var isQuestionRegex = /\w+[?]/;
   return isQuestionRegex.test(this);
 };
+
+String.prototype.numberWords = function() {
+  var numberWordRegex = {
+    0: "zero",
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+    pattern: /\d/g
+  };
+  var digitsArray = this.match(numberWordRegex.pattern);
+  var numberToWord = "";
+  digitsArray.forEach(digit => {
+    numberToWord += numberWordRegex[digit].concat(" ");
+  });
+  console.log(numberToWord);
+  return numberToWord;
+};
+
+String.prototype.wordsToArray = function() {
+  var wordRegex = /\b[\w+]\b/g;
+  var wordArray = wordRegex.exec(this);
+  console.log(wordArray);
+};
+
 String.prototype.toUpper = function() {
-  console.log(this);
   //   var regex = /(.+)\U\1/g;
   var regex = /(.+)\U$1/g;
 
@@ -24,11 +51,10 @@ String.prototype.toUpper = function() {
   //   matchedText.forEach(function(value, index, arr) {
   //     console.log(value);
   //     console.log(index);
-  console.log(regex.exec(this));
   //   });
 };
 
-CustomString.prototype = Object.create(String.prototype);
+// CustomString.prototype = Object.create(String.prototype);
 // CustomString.prototype.hasVowels = function() {};
 
 /**Start customizing the prototype of the string class to suite my own implementations */
