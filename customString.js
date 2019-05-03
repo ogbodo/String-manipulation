@@ -103,18 +103,21 @@ String.prototype.fromCurrency = function() {
 };
 
 String.prototype.toUpper = function() {
-  //   var regex = /(.+)\U\1/g;
-  var regex = /(.+)\U$1/g;
-
-  var matchedText = regex.exec(this);
-
-  var upeerCaseRegex = /\U/.exec(matchedText);
-  //   matchedText.forEach(function(value, index, arr) {
-  //     console.log(value);
-  //     console.log(index);
-  //   });
+  var regex = /.+/g;
+  var matchedString = regex.exec(this);
+  var upperCasedString = "";
+  matchedString.forEach(word => {
+    for (var character of word) {
+      var asciiValue = character.charCodeAt();
+      if (asciiValue >= 97 && asciiValue <= 122) {
+        upperCasedString += String.fromCharCode(asciiValue - 32);
+        continue;
+      }
+      upperCasedString += character;
+    }
+  });
+  return upperCasedString;
 };
-
 // CustomString.prototype = Object.create(String.prototype);
 // CustomString.prototype.hasVowels = function() {};
 

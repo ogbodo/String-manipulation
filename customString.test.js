@@ -53,7 +53,7 @@ test("Returns a number representation of the Currency String e.g 11,111.11 shoul
   expect(str.fromCurrency()).toBe(111111.11);
 });
 
-// test("Returns the String in question but with all characters in upper cases as applicable..", function() {
-//   var str = "King Solomon";
-//   expect(str.toUpper()).toBe("");
-// });
+test("Returns the String in question but with all characters in upper cases as applicable.", function() {
+  var str = "izukerberg";
+  expect(str.toUpper()).toBe("IZUKERBERG");
+});
