@@ -74,3 +74,8 @@ test("Returns each letter in the string as an inverse of its current case e.g Mr
   var str = "Mr. Izu iS A progRammeR";
   expect(str.inverseCase()).toBe("mR. iZU Is a PROGrAMMEr");
 });
+
+test("Returns the letters in alternating cases. It must start with a lower case e.g Onomatopoeia should return oNoMaToPoEiA.", function() {
+  var str = "Izukerberg";
+  expect(str.alternatingCase()).toBe("iZuKeRbErG");
+});

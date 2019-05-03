@@ -174,6 +174,28 @@ String.prototype.inverseCase = function() {
   return inverseCaseString;
 };
 
+String.prototype.alternatingCase = function() {
+  var regex = /.+/g;
+  var alternatingCaseString = this.charAt(0).toLower();
+  if (regex.test(this)) {
+    var charIndex = 0;
+
+    for (;;) {
+      if (this.length === charIndex) {
+        break;
+      }
+      charIndex++;
+      alternatingCaseString += this.charAt(charIndex).toUpperCase();
+
+      if (this.length === charIndex) {
+        break;
+      }
+      charIndex++;
+      alternatingCaseString += this.charAt(charIndex).toLower();
+    }
+  }
+  return alternatingCaseString;
+};
 // CustomString.prototype = Object.create(String.prototype);
 // CustomString.prototype.hasVowels = function() {};
 
