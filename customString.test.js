@@ -57,3 +57,8 @@ test("Returns the String in question but with all characters in upper cases as a
   var str = "izukerberg";
   expect(str.toUpper()).toBe("IZUKERBERG");
 });
+
+test("Returns the String in question but with all characters in their lower cases as applicable", function() {
+  var str = "IZUKERBERG";
+  expect(str.toLower()).toBe("izukerberg");
+});

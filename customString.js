@@ -118,6 +118,24 @@ String.prototype.toUpper = function() {
   });
   return upperCasedString;
 };
+
+String.prototype.toLower = function() {
+  var regex = /.+/g;
+  var matchedString = regex.exec(this);
+  var lowerCasedString = "";
+  matchedString.forEach(word => {
+    for (var character of word) {
+      var asciiValue = character.charCodeAt();
+      if (asciiValue >= 60 && asciiValue <= 90) {
+        lowerCasedString += String.fromCharCode(asciiValue + 32);
+        continue;
+      }
+      lowerCasedString += character;
+    }
+  });
+  return lowerCasedString;
+};
+
 // CustomString.prototype = Object.create(String.prototype);
 // CustomString.prototype.hasVowels = function() {};
 
