@@ -44,8 +44,20 @@ test("Returns true if the string is a digit(one number) e.g 3 should return true
 });
 
 test("Returns a currency representation of the String e.g 11111.11 should be represented as 11,111.11.", function() {
+  var str = "651.11";
+  expect(str.toCurrency()).toBe("651.11 ");
   var str = "11111.11";
   expect(str.toCurrency()).toBe("111,11.11 ");
+  str = "1111129.11";
+  expect(str.toCurrency()).toBe("111,112,9.11 ");
+  str = "111119.11";
+  expect(str.toCurrency()).toBe("111,119.11 ");
+  str = "555534267.81";
+  expect(str.toCurrency()).toBe("555,534,267.81 ");
+  str = "7555534267.81";
+  expect(str.toCurrency()).toBe("755,553,426,7.81 ");
+  str = "7555534267.81p";
+  expect(str.toCurrency()).toBeFalsy();
 });
 
 test("Returns a number representation of the Currency String e.g 11,111.11 should return 11111.11", function() {
@@ -78,4 +90,6 @@ test("Returns each letter in the string as an inverse of its current case e.g Mr
 test("Returns the letters in alternating cases. It must start with a lower case e.g Onomatopoeia should return oNoMaToPoEiA.", function() {
   var str = "Izukerberg";
   expect(str.alternatingCase()).toBe("iZuKeRbErG");
+  str = "IzukerbergE";
+  expect(str.alternatingCase()).toBe("iZuKeRbErGe");
 });

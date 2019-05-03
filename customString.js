@@ -1,7 +1,7 @@
 String.prototype.hasVowels = function() {
   var vowelRegex = /[aeiou]/gi;
-
-  return vowelRegex.test(this);
+  var hasVowel = vowelRegex.test(this);
+  return hasVowel;
 };
 
 String.prototype.isQuestion = function() {
@@ -51,7 +51,7 @@ String.prototype.isDigit = function() {
 };
 
 String.prototype.toCurrency = function() {
-  var regexPattern = /\d+(\.\d+)?/g;
+  var regexPattern = /^\d+(\.\d+)?$/g;
 
   if (!regexPattern.test(this)) {
     return false;
@@ -196,7 +196,3 @@ String.prototype.alternatingCase = function() {
   }
   return alternatingCaseString;
 };
-// CustomString.prototype = Object.create(String.prototype);
-// CustomString.prototype.hasVowels = function() {};
-
-/**Start customizing the prototype of the string class to suite my own implementations */
