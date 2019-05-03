@@ -66,4 +66,11 @@ test("Returns the String in question but with all characters in their lower case
 test("Returns the String in question but changes the First Character to an Upper case.", function() {
   var str = "my name is izukerberg";
   expect(str.ucFirst()).toBe("My Name Is Izukerberg ");
+  str = "mY NamE is izuKerBerG";
+  expect(str.ucFirst()).toBe("My Name Is Izukerberg ");
+});
+
+test("Returns each letter in the string as an inverse of its current case e.g Mr. Ben should return mR. bEN.", function() {
+  var str = "Mr. Izu iS A progRammeR";
+  expect(str.inverseCase()).toBe("mR. iZU Is a PROGrAMMEr");
 });

@@ -149,10 +149,29 @@ String.prototype.ucFirst = function() {
       for (var index = 1; index <= word.length; index++) {
         upperCasedFirstString += word.charAt(index).toLower();
       }
+
       upperCasedFirstString += " ";
     });
   }
   return upperCasedFirstString;
+};
+
+String.prototype.inverseCase = function() {
+  var regex = /.+/g;
+  var inverseCaseString = "";
+  if (regex.test(this)) {
+    for (var character of this) {
+      var asciiValue = character.charCodeAt();
+      if (asciiValue >= 60 && asciiValue <= 90) {
+        inverseCaseString += String.fromCharCode(asciiValue + 32);
+      } else if (asciiValue >= 97 && asciiValue <= 122) {
+        inverseCaseString += String.fromCharCode(asciiValue - 32);
+      } else {
+        inverseCaseString += character;
+      }
+    }
+  }
+  return inverseCaseString;
 };
 
 // CustomString.prototype = Object.create(String.prototype);
