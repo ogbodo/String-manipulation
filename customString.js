@@ -104,10 +104,9 @@ String.prototype.fromCurrency = function() {
 
 String.prototype.toUpper = function() {
   var regex = /.+/g;
-  var matchedString = regex.exec(this);
-  var upperCasedString = "";
-  matchedString.forEach(word => {
-    for (var character of word) {
+  if (regex.test(this)) {
+    var upperCasedString = "";
+    for (var character of this) {
       var asciiValue = character.charCodeAt();
       if (asciiValue >= 97 && asciiValue <= 122) {
         upperCasedString += String.fromCharCode(asciiValue - 32);
@@ -115,16 +114,16 @@ String.prototype.toUpper = function() {
       }
       upperCasedString += character;
     }
-  });
+  }
+
   return upperCasedString;
 };
 
 String.prototype.toLower = function() {
   var regex = /.+/g;
-  var matchedString = regex.exec(this);
   var lowerCasedString = "";
-  matchedString.forEach(word => {
-    for (var character of word) {
+  if (regex.test(this)) {
+    for (var character of this) {
       var asciiValue = character.charCodeAt();
       if (asciiValue >= 60 && asciiValue <= 90) {
         lowerCasedString += String.fromCharCode(asciiValue + 32);
@@ -132,8 +131,28 @@ String.prototype.toLower = function() {
       }
       lowerCasedString += character;
     }
-  });
+  }
+
   return lowerCasedString;
+};
+
+String.prototype.ucFirst = function() {
+  var regex = /\b\w+\b/g;
+  var upperCasedFirstString = "";
+
+  if (regex.test(this)) {
+    var arrayOfMatchedString = this.match(regex);
+
+    arrayOfMatchedString.forEach(word => {
+      upperCasedFirstString += word.charAt(0).toUpper();
+
+      for (var index = 1; index <= word.length; index++) {
+        upperCasedFirstString += word.charAt(index).toLower();
+      }
+      upperCasedFirstString += " ";
+    });
+  }
+  return upperCasedFirstString;
 };
 
 // CustomString.prototype = Object.create(String.prototype);

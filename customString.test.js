@@ -62,3 +62,8 @@ test("Returns the String in question but with all characters in their lower case
   var str = "IZUKERBERG";
   expect(str.toLower()).toBe("izukerberg");
 });
+
+test("Returns the String in question but changes the First Character to an Upper case.", function() {
+  var str = "my name is izukerberg";
+  expect(str.ucFirst()).toBe("My Name Is Izukerberg ");
+});
