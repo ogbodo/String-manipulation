@@ -5,25 +5,24 @@ String.prototype.hasVowels = function() {
 };
 
 String.prototype.isQuestion = function() {
-  var isQuestionRegex = /\w+[?]/;
+  var isQuestionRegex = /[a-zA-Z_-][?]$/;
   return isQuestionRegex.test(this);
 };
 
 String.prototype.numberWords = function() {
-  var numberWordRegex = {
-    0: "zero",
-    1: "one",
-    2: "two",
-    3: "three",
-    4: "four",
-    5: "five",
-    6: "six",
-    7: "seven",
-    8: "eight",
-    9: "nine",
-    digitPattern: /\d/g
-  };
-  var digitsArray = this.match(numberWordRegex.digitPattern);
+  var numberWordRegex = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine"
+  ];
+  var digitsArray = this.match(/\d/g);
   var numberToWord = "";
   digitsArray.forEach(digit => {
     numberToWord += numberWordRegex[digit].concat(" ");
@@ -32,8 +31,9 @@ String.prototype.numberWords = function() {
 };
 
 String.prototype.wordsToArray = function() {
-  var wordRegex = /\b\w+\b/g;
+  var wordRegex = /\b[0-9a-zA-Z_\-?]+\b/g;
   var wordArray = this.match(wordRegex);
+
   return wordArray;
 };
 
@@ -65,31 +65,24 @@ String.prototype.toCurrency = function() {
     var mantissaValue =
       mantissaPortion != null ? mantissaPortion[1] : currencyInput;
 
-    if (/^\d{3}$/.test(mantissaValue)) {
-      formattedCurrency += currencyInput + " ";
-    } else {
-      var oneGrouped = /(\d{3})/,
-        twoGrouped = /(\d{3})(\d{3})/,
-        threeGrouped = /(\d{3})(\d{3})(\d{3})/;
+    var aThousand = /(\d{1})/,
+      tenThousand = /(\d{2})/,
+      hundredThousand = /(\d{3})/,
+      aMillion = /(\d{1})(\d{3})/,
+      tenMillion = /(\d{2})(\d{3})/;
 
-      if (/^\d{1,5}$/.test(mantissaValue)) {
-        formattedCurrency += currencyInput.replace(oneGrouped, "$1,") + " ";
-      } else if (/^\d{1,7}$/.test(mantissaValue)) {
-        if (mantissaValue.length % 3 === 0) {
-          formattedCurrency += currencyInput.replace(twoGrouped, "$1,$2") + " ";
-        } else {
-          formattedCurrency +=
-            currencyInput.replace(twoGrouped, "$1,$2,") + " ";
-        }
-      } else if (/^\d{1,10}$/.test(mantissaValue)) {
-        if (mantissaValue.length % 3 === 0) {
-          formattedCurrency +=
-            currencyInput.replace(threeGrouped, "$1,$2,$3") + " ";
-        } else {
-          formattedCurrency +=
-            currencyInput.replace(threeGrouped, "$1,$2,$3,") + " ";
-        }
-      }
+    if (/^\d{1,3}$/.test(mantissaValue)) {
+      formattedCurrency += currencyInput + " ";
+    } else if (/^\d{1,4}$/.test(mantissaValue)) {
+      formattedCurrency += currencyInput.replace(aThousand, "$1,") + " ";
+    } else if (/^\d{1,5}$/.test(mantissaValue)) {
+      formattedCurrency += currencyInput.replace(tenThousand, "$1,") + " ";
+    } else if (/^\d{1,6}$/.test(mantissaValue)) {
+      formattedCurrency += currencyInput.replace(hundredThousand, "$1,") + " ";
+    } else if (/^\d{1,7}$/.test(mantissaValue)) {
+      formattedCurrency += currencyInput.replace(aMillion, "$1,$2,") + " ";
+    } else if (/^\d{1,8}$/.test(mantissaValue)) {
+      formattedCurrency += currencyInput.replace(tenMillion, "$1,$2,") + " ";
     }
   });
 
@@ -137,10 +130,11 @@ String.prototype.toLower = function() {
 };
 
 String.prototype.ucFirst = function() {
-  var regex = /\b\w+\b/g;
-  var upperCasedFirstString = "";
+  var regex = /\b[a-zA-Z_-]+[\d\+]?\b/g;
+  var upperCasedFirstString = false;
 
   if (regex.test(this)) {
+    upperCasedFirstString = "";
     var arrayOfMatchedString = this.match(regex);
 
     arrayOfMatchedString.forEach(word => {
