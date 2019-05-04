@@ -31,6 +31,9 @@ describe("Returns the numbers in words.", function() {
   test("For the case of 048935", function() {
     expect("048935".numberWords()).toMatch("zero four eight nine three five ");
   });
+  test("For the case of string input mixed with numbers", function() {
+    expect("048g135".numberWords()).toMatch("zero four eight one three five ");
+  });
 });
 
 test("Returns a list of the words in the string, as an Array", function() {
