@@ -1,4 +1,4 @@
-require("./customString");
+require("./Extended.");
 
 describe("Whether or not the string contains vowels.", function() {
   test("A case where the string contains vowels", function() {
