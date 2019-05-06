@@ -61,10 +61,14 @@ String.prototype.toCurrency = function() {
 
   return currency;
 };
-
 String.prototype.fromCurrency = function() {
-  var regex = /(\d+),(\d+),?(\d+)?(\.)?(\d+)?/;
-  var num = this.replace(regex, "$1$2$3$4$5");
+  var wordReg = /[a-z]/gi;
+  var regexPattern = /([\d]+),/g;
+  if (wordReg.test(this)) {
+    return false;
+  }
+
+  var num = this.replace(regexPattern, "$1");
   return parseFloat(num);
 };
 

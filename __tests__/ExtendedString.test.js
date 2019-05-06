@@ -101,8 +101,17 @@ describe("Returns a number representation of the Currency String", function() {
   test("In the case of 101,101.11", function() {
     expect("101,101.11".fromCurrency()).toBe(101101.11);
   });
-  test("In the case of 101,101,455.11", function() {
-    expect("101,101.11".fromCurrency()).toBe(101101.11);
+  test("In the case of 101,101,455,879.11", function() {
+    expect("101,101,455,879.11".fromCurrency()).toBe(101101455879.11);
+  });
+  test("In the case of 101,101,455", function() {
+    expect("101,101,455".fromCurrency()).toBe(101101455);
+  });
+  test("In the case of none digit mixed with string input", function() {
+    expect("101,er,455".fromCurrency()).toBeFalsy();
+  });
+  test("In the case of none digit input", function() {
+    expect("er,dkjskj.00".fromCurrency()).toBeFalsy();
   });
 });
 
