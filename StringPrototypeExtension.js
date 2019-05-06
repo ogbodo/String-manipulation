@@ -5,7 +5,7 @@ String.prototype.hasVowels = function() {
 };
 
 String.prototype.isQuestion = function() {
-  var isQuestionRegex = /[a-zA-Z_-][?]$/;
+  var isQuestionRegex = /\w+[?]$/;
   return isQuestionRegex.test(this);
 };
 
@@ -52,41 +52,14 @@ String.prototype.isDigit = function() {
 
 String.prototype.toCurrency = function() {
   var regexPattern = /^\d+(\.\d+)?$/g;
-
   if (!regexPattern.test(this)) {
     return false;
   }
+  var currency = Number(this)
+    .toFixed(2)
+    .replace(/\d(?=(\d{3})+\.)/g, "$&,");
 
-  var numbers = this.match(regexPattern);
-  var formattedCurrency = "";
-  numbers.forEach(currencyInput => {
-    var mantissaPortion = /(\d+)(?:\.)/.exec(currencyInput);
-
-    var mantissaValue =
-      mantissaPortion != null ? mantissaPortion[1] : currencyInput;
-
-    var aThousand = /(\d{1})/,
-      tenThousand = /(\d{2})/,
-      hundredThousand = /(\d{3})/,
-      aMillion = /(\d{1})(\d{3})/,
-      tenMillion = /(\d{2})(\d{3})/;
-
-    if (/^\d{1,3}$/.test(mantissaValue)) {
-      formattedCurrency += currencyInput + " ";
-    } else if (/^\d{1,4}$/.test(mantissaValue)) {
-      formattedCurrency += currencyInput.replace(aThousand, "$1,") + " ";
-    } else if (/^\d{1,5}$/.test(mantissaValue)) {
-      formattedCurrency += currencyInput.replace(tenThousand, "$1,") + " ";
-    } else if (/^\d{1,6}$/.test(mantissaValue)) {
-      formattedCurrency += currencyInput.replace(hundredThousand, "$1,") + " ";
-    } else if (/^\d{1,7}$/.test(mantissaValue)) {
-      formattedCurrency += currencyInput.replace(aMillion, "$1,$2,") + " ";
-    } else if (/^\d{1,8}$/.test(mantissaValue)) {
-      formattedCurrency += currencyInput.replace(tenMillion, "$1,$2,") + " ";
-    }
-  });
-
-  return formattedCurrency;
+  return currency;
 };
 
 String.prototype.fromCurrency = function() {
@@ -97,8 +70,8 @@ String.prototype.fromCurrency = function() {
 
 String.prototype.toUpper = function() {
   var regex = /.+/g;
+  var upperCasedString = "";
   if (regex.test(this)) {
-    var upperCasedString = "";
     for (var character of this) {
       var asciiValue = character.charCodeAt();
       if (asciiValue >= 97 && asciiValue <= 122) {
@@ -107,6 +80,8 @@ String.prototype.toUpper = function() {
       }
       upperCasedString += character;
     }
+  } else {
+    return false;
   }
 
   return upperCasedString;
@@ -124,13 +99,15 @@ String.prototype.toLower = function() {
       }
       lowerCasedString += character;
     }
+  } else {
+    return false;
   }
 
   return lowerCasedString;
 };
 
 String.prototype.ucFirst = function() {
-  var regex = /\b[a-zA-Z_-]+[\d\+]?\b/g;
+  var regex = /\b[a-zA-Z_\-0-9]+[\d\+]?\b/g;
   var upperCasedFirstString = false;
 
   if (regex.test(this)) {
@@ -141,29 +118,36 @@ String.prototype.ucFirst = function() {
       upperCasedFirstString += word.charAt(0).toUpper();
 
       for (var index = 1; index <= word.length; index++) {
-        upperCasedFirstString += word.charAt(index).toLower();
+        var lowerCase = word.charAt(index).toLower();
+        upperCasedFirstString += lowerCase === false ? "" : lowerCase;
       }
 
       upperCasedFirstString += " ";
     });
+  } else {
+    return false;
   }
   return upperCasedFirstString;
 };
 
 String.prototype.inverseCase = function() {
   var regex = /.+/g;
+  var lowerCasePattern = /[a-z]/;
+  var upperCasePattern = /[A-Z]/;
   var inverseCaseString = "";
+
   if (regex.test(this)) {
     for (var character of this) {
-      var asciiValue = character.charCodeAt();
-      if (asciiValue >= 60 && asciiValue <= 90) {
-        inverseCaseString += String.fromCharCode(asciiValue + 32);
-      } else if (asciiValue >= 97 && asciiValue <= 122) {
-        inverseCaseString += String.fromCharCode(asciiValue - 32);
+      if (upperCasePattern.test(character)) {
+        inverseCaseString += String.fromCharCode(character.charCodeAt() + 32);
+      } else if (lowerCasePattern.test(character)) {
+        inverseCaseString += String.fromCharCode(character.charCodeAt() - 32);
       } else {
         inverseCaseString += character;
       }
     }
+  } else {
+    return false;
   }
   return inverseCaseString;
 };
@@ -179,14 +163,23 @@ String.prototype.alternatingCase = function() {
         break;
       }
       charIndex++;
+      var char = this.charAt(charIndex);
+      if (!/[a-zA-Z]/.test(char)) {
+        alternatingCaseString += char;
+        continue;
+      }
       alternatingCaseString += this.charAt(charIndex).toUpperCase();
 
-      if (this.length === charIndex) {
-        break;
-      }
+      // if (this.length === charIndex) {
+      //   break;
+      // }
       charIndex++;
-      alternatingCaseString += this.charAt(charIndex).toLower();
+      var lowerCase = this.charAt(charIndex).toLower();
+
+      alternatingCaseString += lowerCase === false ? "" : lowerCase;
     }
+  } else {
+    return false;
   }
   return alternatingCaseString;
 };

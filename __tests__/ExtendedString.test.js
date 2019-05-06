@@ -1,4 +1,4 @@
-require("./Extended.");
+require("../StringPrototypeExtension");
 
 describe("Whether or not the string contains vowels.", function() {
   test("A case where the string contains vowels", function() {
@@ -21,6 +21,7 @@ describe("Whether or not the string is a question.", function() {
   });
   test("Return false if the string is not a properly constructed question (doesn't end with a question mark).", function() {
     expect("are you going? home".isQuestion()).toBeFalsy();
+    expect("3445?".isQuestion()).toBeTruthy();
   });
 });
 
@@ -72,22 +73,24 @@ describe("Returns a currency representation of the String", function() {
     expect("11dkP2.11".toCurrency()).toBeFalsy();
   });
   test("In the case of 111.11", function() {
-    expect("111.11".toCurrency()).toBe("111.11 ");
+    expect("11111".toCurrency()).toBe("11,111.00");
+
+    expect("111.11".toCurrency()).toBe("111.11");
   });
   test("In the case of 1110.11", function() {
-    expect("1110.11".toCurrency()).toBe("1,110.11 ");
+    expect("1110.11".toCurrency()).toBe("1,110.11");
   });
   test("In the case of 11101.11", function() {
-    expect("11101.11".toCurrency()).toBe("11,101.11 ");
+    expect("11101.11".toCurrency()).toBe("11,101.11");
   });
   test("In the case of 101101.11", function() {
-    expect("101101.11".toCurrency()).toBe("101,101.11 ");
+    expect("101101.11".toCurrency()).toBe("101,101.11");
   });
   test("In the case of 1101101.11", function() {
-    expect("1101101.11".toCurrency()).toBe("1,101,101.11 ");
+    expect("1101101.11".toCurrency()).toBe("1,101,101.11");
   });
   test("In the case of 11101101.11", function() {
-    expect("11101101.11".toCurrency()).toBe("11,101,101.11 ");
+    expect("11101101.11".toCurrency()).toBe("11,101,101.11");
   });
 });
 
@@ -98,14 +101,34 @@ describe("Returns a number representation of the Currency String", function() {
   test("In the case of 101,101.11", function() {
     expect("101,101.11".fromCurrency()).toBe(101101.11);
   });
+  test("In the case of 101,101,455.11", function() {
+    expect("101,101.11".fromCurrency()).toBe(101101.11);
+  });
 });
 
-test("Returns the String in question but with all characters in upper cases as applicable.", function() {
-  expect("izukerberg".toUpper()).toBe("IZUKERBERG");
+describe("Returns the String in question but with all characters in upper cases as applicable.", function() {
+  test("for the case of izu9kerberg.", function() {
+    expect("izu9kerberg".toUpper()).toBe("IZU9KERBERG");
+  });
+  test("for the case of new line input.", function() {
+    expect("\n".toUpper()).toBeFalsy();
+  });
+  test("for the case of Izuke670rbergE.", function() {
+    expect("Izuke670rbergE".toUpper()).toBe("IZUKE670RBERGE");
+  });
 });
 
-test("Returns the String in question but with all characters in their lower cases as applicable", function() {
-  expect("IZUKERBERG".toLower()).toBe("izukerberg");
+describe("Returns the String in question but with all characters in their lower cases as applicable", function() {
+  test("for the case of Izukerberg.", function() {
+    expect("IZUKERBERG".toLower()).toBe("izukerberg");
+  });
+
+  test("for the case of new line input.", function() {
+    expect("\n".toUpper()).toBeFalsy();
+  });
+  test("for the case of IZUKE670RBERG.", function() {
+    expect("IZUKE670RBERG".toLower()).toBe("izuke670rberg");
+  });
 });
 
 describe("Returns the String in question but changes the First Character to an Upper case.", function() {
@@ -116,20 +139,34 @@ describe("Returns the String in question but changes the First Character to an U
     expect("".ucFirst()).toBeFalsy();
   });
   test("In the case of non string input", function() {
-    expect("327261".ucFirst()).toBeFalsy();
+    expect("327261".ucFirst()).toBe("327261 ");
   });
   test("In the case of: mY NamE is izuKer-BerG", function() {
-    expect("mY NamE is izuKer-BerG".ucFirst()).toBe("My Name Is Izuker-berg ");
+    expect("mY NamE98 is izuKer-BerG".ucFirst()).toBe(
+      "My Name98 Is Izuker-berg "
+    );
   });
 });
 
-test("Returns each letter in the string as an inverse of its current case e.g Mr. Ben should return mR. bEN.", function() {
-  expect("Mr. Izu iS A progRammeR".inverseCase()).toBe(
-    "mR. iZU Is a PROGrAMMEr"
-  );
+describe("Returns each letter in the string as an inverse of its current case", function() {
+  test("for the case of Izukerberg.", function() {
+    expect("Mr. Izu iS A progRammeR".inverseCase()).toBe(
+      "mR. iZU Is a PROGrAMMEr"
+    );
+  });
+  test("for the case of new line input.", function() {
+    expect("\n".inverseCase()).toBeFalsy();
+  });
 });
 
-test("Returns the letters in alternating cases. It must start with a lower case e.g Onomatopoeia should return oNoMaToPoEiA.", function() {
-  expect("Izukerberg".alternatingCase()).toBe("iZuKeRbErG");
-  expect("IzukerbergE".alternatingCase()).toBe("iZuKeRbErGe");
+describe("Returns the letters in alternating cases. It must start with a lower case ", function() {
+  test("for the case of Izukerberg.", function() {
+    expect("Izukerberg".alternatingCase()).toBe("iZuKeRbErG");
+  });
+  test("for the case of Izuke670rbergE.", function() {
+    expect("Izuke670rbergE".alternatingCase()).toBe("iZuKe670RbErGe");
+  });
+  test("for the case of new line input.", function() {
+    expect("\n".alternatingCase()).toBeFalsy();
+  });
 });
