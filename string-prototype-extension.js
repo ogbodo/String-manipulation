@@ -42,12 +42,8 @@ String.prototype.wordCount = function() {
 };
 
 String.prototype.isDigit = function() {
-  var digitRegex = /\d/g; //Regex pattern to match any digit.
-
-  if (!digitRegex.test(this)) {
-    return false;
-  }
-  return this.match(digitRegex).length === 1 ? true : false;
+  var digitRegex = /^\d$/g; //Regex pattern to match a single digit only.
+  return digitRegex.test(this);
 };
 
 String.prototype.toCurrency = function() {
