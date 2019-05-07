@@ -1,8 +1,15 @@
 {
   "name": "StringManipulation",
   "version": "1.0.0",
-  "description": "",
-  "main": "customString.js",
+  "description": "With the consistent use of ES5 and Test Driven Devlopment (TDD) pattern, the Javascript String class was extended using the Prototype Oriented Programming (POP) concept; such that more methods, procedures and instance attributes where added to the String class to support more string manipulation features via the power of Regex. Listed below is a list of the methods added to the string class.",
+  "main": "string-prototype-extension.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "jest": "^24.8.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "jest --watchAll --coverage"
   },
@@ -16,8 +23,5 @@
   "bugs": {
     "url": "https://github.com/ogbodo/StringManipulation/issues"
   },
-  "homepage": "https://github.com/ogbodo/StringManipulation#readme",
-  "dependencies": {
-    "jest": "^24.7.1"
-  }
+  "homepage": "https://github.com/ogbodo/StringManipulation#readme"
 }
