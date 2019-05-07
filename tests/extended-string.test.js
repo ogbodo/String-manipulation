@@ -142,16 +142,18 @@ describe('Returns the String in question but with all characters in their lower 
 
 describe('Returns the String in question but changes the First Character to an Upper case.', function() {
   test('In the case of: my name is izukerberg', function() {
-    expect('my name is izukerberg'.ucFirst()).toBe('My Name Is Izukerberg ');
+    expect('my name is izukerberg'.toTitleCase()).toBe(
+      'My Name Is Izukerberg '
+    );
   });
   test('In the case of empty string', function() {
-    expect(''.ucFirst()).toBeFalsy();
+    expect(''.toTitleCase()).toBeFalsy();
   });
   test('In the case of non string input', function() {
-    expect('327261'.ucFirst()).toBe('327261 ');
+    expect('327261'.toTitleCase()).toBe('327261 ');
   });
   test('In the case of: mY NamE is izuKer-BerG', function() {
-    expect('mY NamE98 is izuKer-BerG'.ucFirst()).toBe(
+    expect('mY NamE98 is izuKer-BerG'.toTitleCase()).toBe(
       'My Name98 Is Izuker-berg '
     );
   });

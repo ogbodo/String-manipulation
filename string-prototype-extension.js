@@ -1,12 +1,11 @@
 String.prototype.hasVowels = function() {
-  var vowelRegex = /[aeiou]/gi; //Regex pattern to match any string having vowels.
-  var hasVowel = vowelRegex.test(this);
-  return hasVowel;
+  var vowelPattern = /[aeiou]/gi; //Regex pattern to match any string having vowels.
+  return vowelPattern.test(this);
 };
 
 String.prototype.isQuestion = function() {
-  var regex = /\w+[?]$/; //Regex pattern to match any sentence with question mark at the end.
-  return regex.test(this);
+  var questionPattern = /\w+[?]$/; //Regex pattern to match any sentence with question mark at the end.
+  return questionPattern.test(this);
 };
 
 String.prototype.numberWords = function() {
@@ -42,38 +41,42 @@ String.prototype.wordCount = function() {
 };
 
 String.prototype.isDigit = function() {
-  var digitRegex = /^\d$/g; //Regex pattern to match a single digit only.
-  return digitRegex.test(this);
+  var singleDigitPattern = /^\d$/g; //Regex pattern to match a single digit only.
+  return singleDigitPattern.test(this);
 };
 
 String.prototype.toCurrency = function() {
-  var regexPattern = /^\d+(\.\d+)?$/g; //Regex pattern to match any digit with or without the decimal part in it.
-  if (!regexPattern.test(this)) {
+  var digitWithOptionalDecimalPattern = /^\d+(\.\d+)?$/g; //Regex pattern to match any digit with or without the decimal part in it.
+  if (!digitWithOptionalDecimalPattern.test(this)) {
     return false;
   }
-  var currency = Number(this)
-    .toFixed(2)
-    .replace(/\d(?=(\d{3})+\.)/g, '$&,'); //Appends comma (,) after every three(3) digits left-ward from the decimal point.
+  //Regex pattern that matches a digit only when there are three(3) digits after starting left-ward from the decimal point.
+  var fractionPattern = /\d(?=(\d{3})+\.)/g;
+
+  var currency = Number(this) //Wrap the digits with the Number class so we can take advantage of the Number class methods
+    .toFixed(2) //Use the toFixed method of Number class to make the digits two decimal places
+    .replace(fractionPattern, '$&,'); //Appends comma (,) after every three(3) digits left-ward from the decimal point.
 
   return currency;
 };
 
 String.prototype.fromCurrency = function() {
-  var wordReg = /[a-z]/gi; //Regex pattern to match any upper or lower cased alphabet.
-  var regexPattern = /([\d]+),/g; //Regex pattern to match one or more digits containing comma (,).
-  if (wordReg.test(this)) {
+  var alphabetPattern = /[a-z]/gi; //Regex pattern to match any upper or lower cased alphabet.
+  var commaSeparatedDigitsPattern = /([\d]+),/g; //Regex pattern to match one or more digits containing comma (,).
+
+  if (alphabetPattern.test(this)) {
     return false;
   }
 
-  var formattedValue = this.replace(regexPattern, '$1');
+  var formattedValue = this.replace(commaSeparatedDigitsPattern, '$1');
   return parseFloat(formattedValue);
 };
 
 String.prototype.toUpper = function() {
-  var regex = /.+/g; //Regex pattern to match any character one or more times except new line character(\n).
+  var anyCharacterPattern = /.+/g; //Regex pattern to match any character one or more times except new line character(\n).
 
   var upperCasedString = '';
-  if (!regex.test(this)) {
+  if (!anyCharacterPattern.test(this)) {
     return false;
   }
   for (var character of this) {
@@ -89,9 +92,9 @@ String.prototype.toUpper = function() {
 };
 
 String.prototype.toLower = function() {
-  var regex = /.+/g; //Regex pattern to match any character one or more times except new line character(\n).
+  var anyCharacterPattern = /.+/g; //Regex pattern to match any character one or more times except new line character(\n).
   var lowerCasedString = '';
-  if (!regex.test(this)) {
+  if (!anyCharacterPattern.test(this)) {
     return false;
   }
   for (var character of this) {
@@ -106,15 +109,16 @@ String.prototype.toLower = function() {
   return lowerCasedString;
 };
 
-String.prototype.ucFirst = function() {
-  var regex = /\b[a-zA-Z_\-0-9]+[\d\+]?\b/g; //Regex pattern to match any alphanumeric character which could form a word in the string.
+String.prototype.toTitleCase = function() {
+  //Regex pattern to match any alphanumeric character which could form a word in the string.
+  var alphanumericPattern = /\b[a-zA-Z_\-0-9]+[\d\+]?\b/g;
   var upperCasedFirstString = false;
 
-  if (!regex.test(this)) {
+  if (!alphanumericPattern.test(this)) {
     return false;
   }
   upperCasedFirstString = '';
-  var matchedStrings = this.match(regex); //Retrieves all matches as an array
+  var matchedStrings = this.match(alphanumericPattern); //Retrieves all matches as an array
 
   matchedStrings.forEach(function(word) {
     upperCasedFirstString += word.charAt(0).toUpper(); //Converts the first character to upper case
@@ -130,11 +134,11 @@ String.prototype.ucFirst = function() {
 };
 
 String.prototype.inverseCase = function() {
-  var regex = /.+/g; //Regex pattern to match any character one or more times except new line character(\n).
+  var anyCharacterPattern = /.+/g; //Regex pattern to match any character one or more times except new line character(\n).
 
   var inverseCaseString = '';
 
-  if (!regex.test(this)) {
+  if (!anyCharacterPattern.test(this)) {
     return false;
   }
 
@@ -153,9 +157,9 @@ String.prototype.inverseCase = function() {
 };
 
 String.prototype.alternatingCase = function() {
-  var regex = /.+/g; //Regex pattern to match any character one or more times except new line character(\n).
+  var anyCharacterPattern = /.+/g; //Regex pattern to match any character one or more times except new line character(\n).
   var alternatingCaseString = this.charAt(0).toLower(); //Converts the first character to lower case
-  if (!regex.test(this)) {
+  if (!anyCharacterPattern.test(this)) {
     return false;
   }
   var charIndex = 0;
