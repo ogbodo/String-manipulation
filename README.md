@@ -28,3 +28,20 @@ With the consistent use of ES5 and Test Driven Devlopment (TDD) pattern, the Jav
 
 - isDigit: Returns true if the string is a digit(one number) e.g 3 should return true and 34 should return false. This method must implement Regular Expression.
 
+
+### To setup and run the project
+```
+Clone the Project
+Install the jest framework for testing
+npm init
+npm install --save-dev jest
+
+// change the value of test in scripts to jest in your package.json
+
+{
+  "scripts": {
+    "test": "jest"
+  }
+}
+To run all test cases: npm test
+
