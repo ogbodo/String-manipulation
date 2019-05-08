@@ -8,7 +8,7 @@ With the consistent use of ES5 and Test Driven Devlopment (TDD) pattern, the Jav
 
 - toLower: Returns the String in question but with all characters in their lower cases as applicable. This method should be implemented without the use of toLowerCase internal methods.
  
-- ucFirst: Returns the String in question but changes the First Character to an Upper case. Make use of your toUpper method above to implement this method or a one-liner.
+- toTitleCase: Returns the String in question but changes the First Character to an Upper case. Make use of your toUpper method above to implement this method or a one-liner.
 
 - isQuestion: Return true if the string is a question (ending with a question mark). This method must implement Regular Expression.
 
