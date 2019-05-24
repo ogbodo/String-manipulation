@@ -30,18 +30,12 @@ With the consistent use of ES5 and Test Driven Devlopment (TDD) pattern, the Jav
 
 
 ### To setup and run the project
-```
-Clone the Project
-Install the jest framework for testing
-npm init
-npm install --save-dev jest
 
-// change the value of test in scripts to jest in your package.json
+1. Clone the Project
 
-{
-  "scripts": {
-    "test": "jest"
-  }
-}
-To run all test cases: npm test
+2. Make sure you have Node.js Installed. Or you can download it [here](https://nodejs.org/en/download/)
+              
+3. To install jest, run `npm install --save-dev jest`
+ 
+4. To run all test cases, run `npm test`
 
